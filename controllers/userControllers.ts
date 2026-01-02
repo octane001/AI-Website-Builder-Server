@@ -181,7 +181,7 @@ export const createUserProject = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         await prisma.user.update({
-            where: { id.userId },
+            where: { id: userId },
             data: { credits: { increment: 5 } }
         })
         console.log(error);

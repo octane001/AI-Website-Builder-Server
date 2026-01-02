@@ -3,6 +3,9 @@ import 'dotenv/config';
 import cors from 'cors'
 import { toNodeHandler } from 'better-auth/node';
 import { auth } from './lib/auth.js';
+import { json } from 'better-auth';
+import userRouter from './routes/userRoutes.js';
+import projectRouter from './routes/projectRoutes.js';
 
 const app = express();
 
@@ -15,9 +18,10 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use("/api/auth", toNodeHandler(auth));
 
-// app.use
+app.use(express.json({ limit: '50mb' }))
 
-
+app.use('/api/user', userRouter)
+app.use('/api/project', projectRouter)
 
 
 app.get('/', (req: Request, res: Response) => {
