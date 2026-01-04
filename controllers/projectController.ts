@@ -168,8 +168,9 @@ export const makeRevision = async (req: Request, res: Response) => {
             where: { id: userId },
             data: { credits: { increment: 5 } }
         })
-        console.log(error.code || error.message);
-        res.status(500).json({ message: error.message });
+        const errorMessage = error instanceof Error ? error.message : 'any error occurred';
+        console.log(errorMessage);
+        res.status(500).json({ message: errorMessage });
     }
 }
 
